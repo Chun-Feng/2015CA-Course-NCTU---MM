@@ -1,4 +1,4 @@
-PROJ=matrix_mult
+PROJ=vector_add
 
 CC=gcc
 
@@ -32,23 +32,13 @@ else
 endif
 
 # Check for Linux-AMD
-ifdef AMDAPPSDKROOT
    INC_DIRS=. $(AMDAPPSDKROOT)/include
 	ifeq ($(PROC_TYPE),)
 		LIB_DIRS=$(AMDAPPSDKROOT)/lib/x86
 	else
 		LIB_DIRS=$(AMDAPPSDKROOT)/lib/x86_64
 	endif
-else
-
-# Check for Linux-Nvidia
-ifdef NVSDKCOMPUTE_ROOT
-   INC_DIRS=. $(NVSDKCOMPUTE_ROOT)/OpenCL/common/inc
 endif
-
-endif
-endif
-
 $(PROJ): $(PROJ).c
 	$(CC) $(CFLAGS) -o $@ $^ $(INC_DIRS:%=-I%) $(LIB_DIRS:%=-L%) $(LIBS)
 
